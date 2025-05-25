@@ -1,8 +1,25 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 from rest_framework import status
+from django.contrib.auth.models import User as AuthUser
 from .models import *
 from .serializer import *
+
+# AUTHENTICATION
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def auth_register(request):
+    username = request.data.get('username')
+    email = request.data.get('email')
+    password = request.data.get('password')
+
+    if AuthUser.objects.filter(username=username).exists():
+        return Response({'error': 'Username already exists'}, status=400)
+
+    auth_user = AuthUser.objects.create_user(username=username, email=email, password=password)
+    print(auth_user)
+    return Response({'message': 'Usuário registrado com sucesso'}, status=status.HTTP_201_CREATED)
 
 # USERS
 @api_view(['GET'])
