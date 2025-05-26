@@ -8,7 +8,7 @@ A API em Django do aplicativo **Sonhario** -- um diário de hábitos do sono que
 
 * Python 3.x
 * pip
-* virtualenv (opcional, mas recomendado)
+* venv
 
 ### Instalação
 
@@ -22,8 +22,10 @@ A API em Django do aplicativo **Sonhario** -- um diário de hábitos do sono que
 2. Crie e ative o ambiente virtual
 
    ```bash
-   python -m venv venv
-   source venv/Scripts/activate
+   python -m venv .venv
+   source .venv/bin/activate
+   # Ou no Windows
+   .venv/Scripts/activate
    ```
 
 3. Instale as dependências

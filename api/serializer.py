@@ -10,3 +10,8 @@ class EntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
         fields = '__all__'
+
+class DreamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Dream
+        fields = '__all__'

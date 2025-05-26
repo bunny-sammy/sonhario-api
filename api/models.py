@@ -8,6 +8,11 @@ class Gender(models.TextChoices):
     FEMALE = 'Female', 'Female'
     OTHER = 'Other', 'Other'
 
+class Emotions(models.IntegerChoices):
+    HAPPY = 1, 'Happy'
+    SAD = 2, 'Sad'
+    NEUTRAL = 3, 'Neutral'
+
 # MODELS
 class Profile (models.Model):
     user = models.OneToOneField(
@@ -47,13 +52,45 @@ class Entry (models.Model):
     sleep_end_time = models.TimeField()
     total_sleep_hours = models.FloatField()
     sleep_quality = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(10)]
+        null=True, validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
-    exercise = models.IntegerField()
-    caffeine_intake = models.IntegerField()
+    exercise = models.IntegerField(null=True)
+    caffeine_intake = models.IntegerField(null=True)
+    work_hours = models.FloatField(null=True)
+    productivity_score = models.IntegerField(
+        null=True, validators=[MinValueValidator(1), MaxValueValidator(10)]
+    )
+    mood_score = models.IntegerField(
+        null=True, validators=[MinValueValidator(1), MaxValueValidator(10)]
+    )
+    stress_level = models.IntegerField(
+        null=True, validators=[MinValueValidator(1), MaxValueValidator(10)]
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
         return self.date
+    
+class Dream (models.Model):
+    author = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+        related_name='dreams'
+    )
+    entry = models.ForeignKey(
+        Entry,
+        on_delete=models.CASCADE,
+        related_name='dream'
+    )
+    emotion = models.IntegerField(
+        choices=Emotions.choices,
+        default=Emotions.NEUTRAL,
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    date = models.DateField()
+    text = models.TextField()
