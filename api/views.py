@@ -9,6 +9,20 @@ from .serializer import *
 # AUTHENTICATION
 @api_view(['POST'])
 @permission_classes([AllowAny])
+def auth_register_check(request):
+    username = request.data.get('username')
+    email = request.data.get('email')
+
+    if User.objects.filter(username=username).exists():
+        return Response({'error': 'Este nome de usuário já está em uso'}, status=400)
+    
+    if User.objects.filter(email=email).exists():
+        return Response({'error': 'Este email já está em uso'}, status=400)
+    
+    return Response({'message': 'Nome de usuário e email disponíveis'}, status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
 def auth_register(request):
     username = request.data.get('username')
     email = request.data.get('email')
