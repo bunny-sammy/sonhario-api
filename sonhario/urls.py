@@ -16,8 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from sonhario.views import *
 
 urlpatterns = [
+    path('', landing_page, name='landing'),
+    path('api/', landing_page, name='landing'),
     path('api/', include('api.urls')),
     # path('admin/', admin.site.urls),
 ]
