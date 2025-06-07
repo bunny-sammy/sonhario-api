@@ -24,7 +24,6 @@ def auth_register(request):
     error, status_code = check_register_data(request.data)
     if error:
         return Response(error, status=status_code)
-    print("Past user check")
     
     profile_serializer = ProfileSerializer(data = request.data)
 
