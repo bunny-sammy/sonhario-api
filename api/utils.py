@@ -3,6 +3,7 @@ from rest_framework import status
 from datetime import datetime, timedelta, date
 
 def check_register_data (data):
+    # Checa se um usuário existe por username ou email
     username = data.get('username')
     email = data.get('email')
     password = data.get('password')
@@ -19,6 +20,7 @@ def check_register_data (data):
     return None, None
 
 def get_age (birthdate):
+    # Calcula a idade comparando à data atual
     today = date.today()
     age = today.year - birthdate.year
 
@@ -29,12 +31,12 @@ def get_age (birthdate):
     return age
 
 def calc_sleep_hours (start_str, end_str, format=True):
+    # Calcula, a partir da hora de início e fim, as horas de sono
     fmt = "%H:%M"
     start = datetime.strptime(start_str, fmt)
     end = datetime.strptime(end_str, fmt)
 
     if end < start:
-        # slept past midnight
         end += timedelta(days=1)
 
     duration = end - start
@@ -44,9 +46,15 @@ def calc_sleep_hours (start_str, end_str, format=True):
     return hours
 
 def paginate_list (list, queries):
+    # Aplica o limite e o step de paginação a uma lista
     limit = int(queries.get('limit', 10))
     step = int(queries.get('step', 0))
 
     start = step * limit
     end = start + limit
     return list[start:end]
+
+def calc_deficit ():
+    # Calcula o deficit de sono
+    # A implementar
+    return

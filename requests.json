@@ -1,0 +1,181 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "Sonhario",
+    "collectionId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
+    "dateExported": "2025-06-07T02:11:12.521Z",
+    "version": "1.2",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "d2064d30-96de-4f94-945e-c9c873306201",
+            "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
+            "containerId": "",
+            "name": "Register",
+            "url": "http://127.0.0.1:8000/api/register/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2025-06-07T00:10:40.168Z",
+            "modified": "2025-06-07T00:10:40.168Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"sammy\",\n  \"email\": \"david@mail.com\",\n  \"password\": \"senha123\",\n  \"display_name\": \"Sammy\",\n  \"birthdate\": \"2003-01-11\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "0725db55-0c85-4c1f-b20e-2de6dea8ad50",
+            "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
+            "containerId": "",
+            "name": "Login",
+            "url": "http://127.0.0.1:8000/api/token/",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2025-06-07T00:10:54.093Z",
+            "modified": "2025-06-07T00:11:38.112Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\": \"sammy\",\n  \"password\": \"senha123\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "327fd833-f23c-4bc2-a1ef-dc9ca5a3e089",
+            "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
+            "containerId": "",
+            "name": "Profile Get / Update",
+            "url": "http://127.0.0.1:8000/api/profile/",
+            "method": "GET",
+            "sortNum": 25000,
+            "created": "2025-06-07T01:06:45.278Z",
+            "modified": "2025-06-07T01:13:05.940Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ5NTE2NTU4LCJpYXQiOjE3NDkyNTczNTgsImp0aSI6ImE2N2Y1YWZiOGUxMTQ1ZWNiNGUxZWY5Mzg2YjI5MDNlIiwidXNlcl9pZCI6MX0.q8nLnTMAsnERc8Wbg2rmFwq7Pcp2mGnBcsWX5QTMPog"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"display_name\": \"David\",\n  \"birthdate\": \"2003-01-11\",\n  \"gender\": \"Male\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "13128a34-436a-4e59-be70-d294be7dffaf",
+            "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
+            "containerId": "",
+            "name": "Entry Index",
+            "url": "http://127.0.0.1:8000/api/entries/",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2025-06-07T00:19:19.859Z",
+            "modified": "2025-06-07T02:04:28.648Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ5NTE2NTU4LCJpYXQiOjE3NDkyNTczNTgsImp0aSI6ImE2N2Y1YWZiOGUxMTQ1ZWNiNGUxZWY5Mzg2YjI5MDNlIiwidXNlcl9pZCI6MX0.q8nLnTMAsnERc8Wbg2rmFwq7Pcp2mGnBcsWX5QTMPog"
+                }
+            ],
+            "params": [
+                {
+                    "name": "limit",
+                    "value": "1",
+                    "isDisabled": true,
+                    "isPath": false
+                },
+                {
+                    "name": "step",
+                    "value": "0",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ]
+        },
+        {
+            "_id": "0bd02205-28a5-40c9-8a9f-5b81215c3b2c",
+            "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
+            "containerId": "",
+            "name": "Entry Create",
+            "url": "http://127.0.0.1:8000/api/entries/",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2025-06-07T00:29:51.511Z",
+            "modified": "2025-06-07T01:14:02.616Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ5NTE2NTU4LCJpYXQiOjE3NDkyNTczNTgsImp0aSI6ImE2N2Y1YWZiOGUxMTQ1ZWNiNGUxZWY5Mzg2YjI5MDNlIiwidXNlcl9pZCI6MX0.q8nLnTMAsnERc8Wbg2rmFwq7Pcp2mGnBcsWX5QTMPog"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"date\": \"2025-06-06\",\n  \"sleep_start_time\": \"21:54\",\n  \"sleep_end_time\": \"05:41\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "6ed33a5e-89d4-43ca-a90a-d2523030aa91",
+            "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
+            "containerId": "",
+            "name": "Entry Get / Update / Delete",
+            "url": "http://127.0.0.1:8000/api/entries/2",
+            "method": "PUT",
+            "sortNum": 50000,
+            "created": "2025-06-07T00:57:51.198Z",
+            "modified": "2025-06-07T01:15:21.747Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ5NTE2NTU4LCJpYXQiOjE3NDkyNTczNTgsImp0aSI6ImE2N2Y1YWZiOGUxMTQ1ZWNiNGUxZWY5Mzg2YjI5MDNlIiwidXNlcl9pZCI6MX0.q8nLnTMAsnERc8Wbg2rmFwq7Pcp2mGnBcsWX5QTMPog"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"date\": \"2025-06-05\",\n  \"sleep_start_time\": \"23:10\",\n  \"sleep_end_time\": \"08:21\"\n}",
+                "form": []
+            }
+        },
+        {
+            "_id": "58472fd4-26f7-4ff5-80a7-0a3410ddd7e6",
+            "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
+            "containerId": "",
+            "name": "Dream Index",
+            "url": "http://127.0.0.1:8000/api/entries/dreams",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2025-06-07T01:27:46.972Z",
+            "modified": "2025-06-07T01:35:57.843Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ5NTE2NTU4LCJpYXQiOjE3NDkyNTczNTgsImp0aSI6ImE2N2Y1YWZiOGUxMTQ1ZWNiNGUxZWY5Mzg2YjI5MDNlIiwidXNlcl9pZCI6MX0.q8nLnTMAsnERc8Wbg2rmFwq7Pcp2mGnBcsWX5QTMPog"
+                }
+            ]
+        },
+        {
+            "_id": "ab5aeb87-8673-4840-8362-f5aee6b416b7",
+            "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
+            "containerId": "",
+            "name": "Dream Create / Show / Update / Delete",
+            "url": "http://127.0.0.1:8000/api/entries/2/dream/",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2025-06-07T01:36:05.683Z",
+            "modified": "2025-06-07T01:52:03.464Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQ5NTE2NTU4LCJpYXQiOjE3NDkyNTczNTgsImp0aSI6ImE2N2Y1YWZiOGUxMTQ1ZWNiNGUxZWY5Mzg2YjI5MDNlIiwidXNlcl9pZCI6MX0.q8nLnTMAsnERc8Wbg2rmFwq7Pcp2mGnBcsWX5QTMPog"
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"emotion\": 1,\n  \"text\": \"Eu tive um sonho insano hoje!\"\n}",
+                "form": []
+            }
+        }
+    ],
+    "ref": "tAl5fykRprfeX-VpAsa580AfeYpHP5fSKTDTwA5TYe3k8Jwtu7djuWUtj6zPWt0K7MSneT00n5X0O1XXeWl_cg"
+}

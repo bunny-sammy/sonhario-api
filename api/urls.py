@@ -14,35 +14,4 @@ urlpatterns = [
     path('entries/<int:pk>', entry_show_update_delete, name="entry_show_update_delete"),
     path('entries/dreams/', dream_index, name="dream_index"),
     path('entries/<int:pk>/dream/', dream_create_show_update_delete, name="dream_create_show_update_delete"),
-
 ]
-
-'''
-ENDPOINTS NECESSÁRIOS
-
-Registro
-- Checagem de username e e-mail
-- Criação de usuário e perfil
-
-Dashboard (auth)
-- Retorna perfil do usuário, as últimas sete entries e o deficit de sono
-- Endpoint individual do déficit de sono
-
-Perfil (auth)
-- Retorna o perfil do usuário atual
-- Atualiza o perfil do usuário atual
-
-Entries (auth)
-- Adicionar entry
-- Listar entries do usuário
-- Listar uma entry por id
-- Atualizar entry
-- Deletar entry
-
-Dreams (auth)
-- Adicionar dream
-- Listar dreams do usuário
-- Listar uma entry por id
-- Atualizar dream
-- Deletar dream
-'''
