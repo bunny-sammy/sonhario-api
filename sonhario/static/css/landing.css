@@ -1,0 +1,129 @@
+img#logo {
+    width: 55%;
+    pointer-events: none;
+}
+
+img.cloud {
+    position: fixed;
+    width: 1000px;
+    filter: brightness(0.85);
+
+    animation-iteration-count: 1;
+    animation-duration: 2.5s;
+    animation-easing: ease-in;
+}
+
+img.cloud:nth-child(1) {
+    top: -300px;
+    right: -150px;
+    animation-name: cloud-1;
+}
+
+img.cloud:nth-child(2) {
+    bottom: -250px;
+    left: -150px;
+    animation-name: cloud-2;
+}
+
+h2 {
+    margin: 0;
+}
+
+ul#links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+}
+
+ul#links li {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1rem;
+    border-radius: 100px;
+    margin: 0;
+
+    max-width: 24px;
+    overflow-x: hidden;
+    height: 100%;
+    background-color: #3C3F50;
+    cursor: pointer;
+
+    transition: max-width 0.3s ease;
+}
+
+ul#links li:nth-child(1) {
+    background-color: #374796;
+}
+
+ul#links li:hover {
+    max-width: 100vw;
+}
+ul#links li:hover span {
+    opacity: 1;
+}
+
+ul#links li img {
+    height: 24px;
+}
+ul#links li span {
+    pointer-events: none;
+    white-space: nowrap;
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+}
+
+@keyframes cloud-1 {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes cloud-2 {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 480px) {
+    img#logo {
+        width: 85%;
+    }
+}
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1rem;
+    }
+    ul#links {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    ul#links li {
+        max-width: 100vw;
+        width: 100%;
+        height: 100%;
+        gap: 1rem;
+    }
+    ul#links li span {
+        opacity: 1;
+    }
+    ul#links li img {
+        height: 20px;
+    }
+}
