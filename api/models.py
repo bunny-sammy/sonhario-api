@@ -89,8 +89,11 @@ class Dream (models.Model):
         default=Emotions.NEUTRAL,
     )
 
+    date = models.DateField()
+    text = models.TextField()
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    date = models.DateField()
-    text = models.TextField()
+    def __str__(self):
+        return self.date
