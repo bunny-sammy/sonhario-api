@@ -16,7 +16,7 @@ def auth_register_check(request):
     if error:
         return Response(error, status=status_code)
 
-    return Response({'success': True}, status=status.HTTP_200_OK)
+    return Response({'message': "Seu nome de usuário e email estão dispníveis"}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])

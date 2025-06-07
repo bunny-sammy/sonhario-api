@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Sonhario | Seu diário de hábitos de sono">
+    <meta name="description" content="Seu diário de hábitos de sono">
     <meta name="theme-color" content="#161616">
 
     <title>Sonhario</title>
@@ -19,6 +19,7 @@
 <body>
     <img class="cloud" src="{% static 'img/cloud.png' %}">
     <img class="cloud" src="{% static 'img/cloud.png' %}">
+    <div id="background"></div>
     <main>
         <img id="logo" src="{% static 'img/logo.svg' %}">
         <h2>Seu diário de hábitos de sono</h2>
@@ -50,7 +51,9 @@
     }
 
     function link_docs () {
-        window.open(window.location.href + '/docs');
+        url = window.location.href;
+        if (!url.endsWith('/')) url += '/';
+        window.location.href = url + 'docs';
     }
 
     function link_code () {
