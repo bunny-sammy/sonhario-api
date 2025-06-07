@@ -69,8 +69,11 @@ def entry_index_create(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':        
-        entries = profile.entries
-        serializer = EntrySerializer(entries, many=True)
+        entries = profile.entries.order_by('-date')
+
+        paginated = paginate_list(entries, request.query_params)
+
+        serializer = EntrySerializer(paginated, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     if request.method == 'POST':
@@ -123,8 +126,10 @@ def dream_index(request):
     if not profile:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
-    dreams = profile.dreams
-    serializer = DreamSerializer(dreams, many=True)
+    dreams = profile.dreams.order_by('-date')
+    paginated = paginate_list(dreams, request.query_params)
+
+    serializer = DreamSerializer(paginated, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])

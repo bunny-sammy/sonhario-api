@@ -42,3 +42,11 @@ def calc_sleep_hours (start_str, end_str, format=True):
     if format: hours = round(hours, 2)
 
     return hours
+
+def paginate_list (list, queries):
+    limit = int(queries.get('limit', 10))
+    step = int(queries.get('step', 0))
+
+    start = step * limit
+    end = start + limit
+    return list[start:end]
