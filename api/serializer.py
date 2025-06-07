@@ -29,3 +29,4 @@ class DreamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dream
         fields = '__all__'
+        read_only_fields = ['author', 'entry', 'date']

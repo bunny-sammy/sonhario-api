@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from .models import *
 from .serializer import *
 from .utils import *
@@ -113,3 +114,72 @@ def entry_show_update_delete(request, pk):
     if request.method == 'DELETE':
         entry.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+# DREAM
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def dream_index(request):
+    profile = request.user.profile
+    if not profile:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    dreams = profile.dreams
+    serializer = DreamSerializer(dreams, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET', 'POST', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def dream_create_show_update_delete (request, pk):
+    profile = request.user.profile
+    if not profile:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    try:
+        entry = Entry.objects.get(pk=pk)
+    except Entry.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'POST':
+        try:
+            dream = entry.dream 
+            serializer = DreamSerializer(dream, data=request.data)
+            if serializer.is_valid():
+                serializer.save(
+                    entry=entry,
+                    date=entry.date
+                )
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except ObjectDoesNotExist:
+            serializer = DreamSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save(
+                    author=profile,
+                    entry=entry,
+                    date=entry.date
+                )
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        try:
+            dream = entry.dream
+        except ObjectDoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        if request.method == 'GET':
+            serializer = DreamSerializer(dream)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        if request.method == 'PUT':
+            serializer = DreamSerializer(dream, data=request.data)
+            if serializer.is_valid():
+                serializer.save(
+                    entry=entry,
+                    date=entry.date
+                )
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+        
+        if request.method == 'DELETE':
+            dream.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)

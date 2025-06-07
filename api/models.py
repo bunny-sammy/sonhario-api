@@ -79,7 +79,7 @@ class Dream (models.Model):
         on_delete=models.CASCADE,
         related_name='dreams'
     )
-    entry = models.ForeignKey(
+    entry = models.OneToOneField(
         Entry,
         on_delete=models.CASCADE,
         related_name='dream'
