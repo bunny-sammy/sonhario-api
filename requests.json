@@ -2,7 +2,7 @@
     "clientName": "Thunder Client",
     "collectionName": "Sonhario",
     "collectionId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
-    "dateExported": "2025-06-07T02:11:12.521Z",
+    "dateExported": "2025-06-07T02:25:26.378Z",
     "version": "1.2",
     "folders": [],
     "requests": [
@@ -11,11 +11,11 @@
             "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
             "containerId": "",
             "name": "Register",
-            "url": "http://127.0.0.1:8000/api/register/",
+            "url": "http://127.0.0.1:8000/register/",
             "method": "POST",
             "sortNum": 10000,
             "created": "2025-06-07T00:10:40.168Z",
-            "modified": "2025-06-07T00:10:40.168Z",
+            "modified": "2025-06-07T02:23:52.072Z",
             "headers": [],
             "body": {
                 "type": "json",
@@ -28,11 +28,11 @@
             "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
             "containerId": "",
             "name": "Login",
-            "url": "http://127.0.0.1:8000/api/token/",
+            "url": "http://127.0.0.1:8000/token/",
             "method": "POST",
             "sortNum": 20000,
             "created": "2025-06-07T00:10:54.093Z",
-            "modified": "2025-06-07T00:11:38.112Z",
+            "modified": "2025-06-07T02:23:25.482Z",
             "headers": [],
             "body": {
                 "type": "json",
@@ -45,11 +45,11 @@
             "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
             "containerId": "",
             "name": "Profile Get / Update",
-            "url": "http://127.0.0.1:8000/api/profile/",
+            "url": "http://127.0.0.1:8000/profile/",
             "method": "GET",
             "sortNum": 25000,
             "created": "2025-06-07T01:06:45.278Z",
-            "modified": "2025-06-07T01:13:05.940Z",
+            "modified": "2025-06-07T02:23:58.769Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -67,11 +67,11 @@
             "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
             "containerId": "",
             "name": "Entry Index",
-            "url": "http://127.0.0.1:8000/api/entries/",
+            "url": "http://127.0.0.1:8000/entries/",
             "method": "GET",
             "sortNum": 30000,
             "created": "2025-06-07T00:19:19.859Z",
-            "modified": "2025-06-07T02:04:28.648Z",
+            "modified": "2025-06-07T02:24:07.793Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -98,11 +98,11 @@
             "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
             "containerId": "",
             "name": "Entry Create",
-            "url": "http://127.0.0.1:8000/api/entries/",
+            "url": "http://127.0.0.1:8000/entries/",
             "method": "POST",
             "sortNum": 40000,
             "created": "2025-06-07T00:29:51.511Z",
-            "modified": "2025-06-07T01:14:02.616Z",
+            "modified": "2025-06-07T02:24:16.765Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -120,11 +120,11 @@
             "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
             "containerId": "",
             "name": "Entry Get / Update / Delete",
-            "url": "http://127.0.0.1:8000/api/entries/2",
+            "url": "http://127.0.0.1:8000/entries/2",
             "method": "PUT",
             "sortNum": 50000,
             "created": "2025-06-07T00:57:51.198Z",
-            "modified": "2025-06-07T01:15:21.747Z",
+            "modified": "2025-06-07T02:24:26.110Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -142,11 +142,11 @@
             "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
             "containerId": "",
             "name": "Dream Index",
-            "url": "http://127.0.0.1:8000/api/entries/dreams",
+            "url": "http://127.0.0.1:8000/entries/dreams",
             "method": "GET",
             "sortNum": 70000,
             "created": "2025-06-07T01:27:46.972Z",
-            "modified": "2025-06-07T01:35:57.843Z",
+            "modified": "2025-06-07T02:24:37.102Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -159,11 +159,11 @@
             "colId": "482e445a-ceb4-4948-b2f6-b011db3fdca8",
             "containerId": "",
             "name": "Dream Create / Show / Update / Delete",
-            "url": "http://127.0.0.1:8000/api/entries/2/dream/",
-            "method": "POST",
+            "url": "http://127.0.0.1:8000/entries/2/dream/",
+            "method": "GET",
             "sortNum": 80000,
             "created": "2025-06-07T01:36:05.683Z",
-            "modified": "2025-06-07T01:52:03.464Z",
+            "modified": "2025-06-07T02:24:48.101Z",
             "headers": [
                 {
                     "name": "Authorization",
@@ -177,5 +177,5 @@
             }
         }
     ],
-    "ref": "tAl5fykRprfeX-VpAsa580AfeYpHP5fSKTDTwA5TYe3k8Jwtu7djuWUtj6zPWt0K7MSneT00n5X0O1XXeWl_cg"
+    "ref": "tAl5fykRprfeX-VpAsa580AfeYpHP5fSKTDTwA5TYe2YsZfsmGnhyPvZYe0CyJyQDoP9e-2IiuD4sqFLNjdbSQ"
 }
