@@ -41,8 +41,23 @@ def auth_register(request):
     return Response({'message': 'Usuário registrado com sucesso!'}, status=status.HTTP_201_CREATED)
 
 # PROFILE
-# @api_view(['GET', 'POST'])
-
+@api_view(['GET', 'PUT'])
+@permission_classes([IsAuthenticated])
+def profile_show_update(request):
+    profile = request.user.profile
+    if not profile:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if request.method == 'GET':
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
+    if request.method == 'PUT':
+        serializer = ProfileSerializer(profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
 # ENTRY
 @api_view(['GET', 'POST'])
@@ -63,13 +78,19 @@ def entry_index_create(request):
             serializer.save(
                 author=profile,
                 age=get_age(profile.birthdate),
+                gender=profile.gender,
                 total_sleep_hours=calc_sleep_hours(request.data['sleep_start_time'], request.data['sleep_end_time'])
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def entry_show_update_delete(request, pk):
+    profile = request.user.profile
+    if not profile:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
     try:
         entry = Entry.objects.get(pk=pk)
     except Entry.DoesNotExist:
@@ -82,7 +103,8 @@ def entry_show_update_delete(request, pk):
     if request.method == 'PUT':
         serializer = EntrySerializer(entry, data=request.data)
         if serializer.is_valid():
-            serializer.save(
+            serializer.save(                
+                gender=profile.gender,
                 total_sleep_hours=calc_sleep_hours(request.data['sleep_start_time'], request.data['sleep_end_time'])
             )
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -91,42 +113,3 @@ def entry_show_update_delete(request, pk):
     if request.method == 'DELETE':
         entry.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-# USER / PROFILE
-@api_view(['GET'])
-def user_index(request):
-    profiles = Profile.objects.all()
-    serializer = ProfileSerializer(profiles, many=True)
-
-    return Response(serializer.data, status=status.HTTP_200_OK)
-
-@api_view(['POST'])
-def user_create(request):
-    serializer = ProfileSerializer(data = request.data)
-    if serializer.is_valid():
-        serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def user_detail(request, pk):
-    try:
-        profile = Profile.objects.get(pk=pk)
-    except User.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    
-    if request.method == 'GET':
-        serializer = ProfileSerializer(profile)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-    
-    if request.method == 'PUT':
-        serializer = ProfileSerializer(profile, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
-    
-    if request.method == 'DELETE':
-        profile.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-    

@@ -8,12 +8,10 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
+    path('profile/', profile_show_update, name="profile_show_update"),
+
     path('entries/', entry_index_create, name="entry_index_create"),
     path('entries/<int:pk>', entry_show_update_delete, name="entry_show_update_delete"),
-
-    path('users/', user_index, name="user_index"),
-    path('users/create', user_create, name="user_create"),
-    path('users/<int:pk>', user_detail, name="user_detail"),
 ]
 
 '''
