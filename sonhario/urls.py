@@ -20,6 +20,6 @@ from sonhario.views import *
 
 urlpatterns = [
     path('', landing_page, name='landing'),
+    path('docs', docs_page, name='docs'),
     path('', include('api.urls')),
-    # path('admin/', admin.site.urls),
 ]
