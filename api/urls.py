@@ -15,5 +15,7 @@ urlpatterns = [
     path('entries/dreams/', dream_index, name="dream_index"),
     path('entries/<int:pk>/dream/', dream_create_show_update_delete, name="dream_create_show_update_delete"),
 
-    path('predict/sleep/', predict_sleep_quality, name='predict_sleep_quality'),
+    path('insight/entry/', analyze_entry_quality, name='analyze_entry_quality'),
+    path('insight/deficit/', analyze_weekly_deficit, name='analyze_weekly_deficit'),
+    path('insight/average/', analyze_weekly_deficit, name='analyze_weekly_deficit'),
 ]

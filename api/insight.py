@@ -77,7 +77,7 @@ Data = [
 Try and predict, in a scale of 1 to 10:
 1) Their productivity score for the next day (1-10)
 2) Their stress level for the next day (1-10)
-3) A one line of short, concise advice on how to improve their sleep quality based on this data (such as changing sleep times, avoiding screens before bed, drinking less coffee) in imperative language in brazilian portuguese. It's okay to just compliment them if they have healthy habits.
+3) A one line of short, concise advice on how to improve their sleep quality based on this data (such as changing sleep times, avoiding screens before bed, drinking less coffee) in imperative but caring language in brazilian portuguese. It's okay to just compliment them if they have healthy habits.
 Return ONLY the responses as an int to each of the three points separated by _ with no line breaks, avoiding any extra unnecessary text
                 '''
         evaluation = ask_groq(prompt)
@@ -104,3 +104,6 @@ Return ONLY the responses as an int to each of the three points separated by _ w
             'error': 'Erro interno no processamento',
             'technical': str(e)
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+def weekly_insight (entries, profile):
+    return 0

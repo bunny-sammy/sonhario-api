@@ -72,7 +72,7 @@ class Entry (models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return self.date
+        return self.date.strftime("%Y-%m-%d")
     
 class Dream (models.Model):
     author = models.ForeignKey(
@@ -97,4 +97,4 @@ class Dream (models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.date
+        return self.date.strftime("%Y-%m-%d")
