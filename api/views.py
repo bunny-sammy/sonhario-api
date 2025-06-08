@@ -4,15 +4,17 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+import pandas as pd
 from .models import *
 from .serializer import *
-from .utils import *
+from . import utils
+from . import predict
 
 # AUTHENTICATION
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def auth_register_check(request):
-    error, status_code = check_register_data(request.data)
+    error, status_code = utils.check_register_data(request.data)
     if error:
         return Response(error, status=status_code)
 
@@ -21,7 +23,7 @@ def auth_register_check(request):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def auth_register(request):
-    error, status_code = check_register_data(request.data)
+    error, status_code = utils.check_register_data(request.data)
     if error:
         return Response(error, status=status_code)
     
@@ -70,7 +72,7 @@ def entry_index_create(request):
     if request.method == 'GET':        
         entries = profile.entries.order_by('-date')
 
-        paginated = paginate_list(entries, request.query_params)
+        paginated = utils.paginate_list(entries, request.query_params)
 
         serializer = EntrySerializer(paginated, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -80,9 +82,10 @@ def entry_index_create(request):
         if serializer.is_valid():
             serializer.save(
                 author=profile,
-                age=get_age(profile.birthdate),
+                age=utils.get_age(profile.birthdate),
                 gender=profile.gender,
-                total_sleep_hours=calc_sleep_hours(request.data['sleep_start_time'], request.data['sleep_end_time'])
+                caffeine_intake=utils.calc_coffee_cups(request.data['coffee_cups']),
+                total_sleep_hours=utils.calc_sleep_hours(request.data['sleep_start_time'], request.data['sleep_end_time'])
             )
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -107,8 +110,9 @@ def entry_show_update_delete(request, pk):
         serializer = EntrySerializer(entry, data=request.data)
         if serializer.is_valid():
             serializer.save(                
-                gender=profile.gender,
-                total_sleep_hours=calc_sleep_hours(request.data['sleep_start_time'], request.data['sleep_end_time'])
+                gender=profile.gender,                
+                caffeine_intake=utils.calc_coffee_cups(request.data['coffee_cups']),
+                total_sleep_hours=utils.calc_sleep_hours(request.data['sleep_start_time'], request.data['sleep_end_time'])
             )
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
@@ -126,7 +130,7 @@ def dream_index(request):
         return Response(status=status.HTTP_404_NOT_FOUND)
     
     dreams = profile.dreams.order_by('-date')
-    paginated = paginate_list(dreams, request.query_params)
+    paginated = utils.paginate_list(dreams, request.query_params)
 
     serializer = DreamSerializer(paginated, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
@@ -187,3 +191,14 @@ def dream_create_show_update_delete (request, pk):
         if request.method == 'DELETE':
             dream.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
+        
+# PREDICTION (AI AGENT)
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def predict_sleep_quality(request):
+    response = predict.sleep_quality(
+        request.data,
+        utils.get_age(request.user.profile.birthdate),
+        request.user.profile.gender
+    )
+    return response

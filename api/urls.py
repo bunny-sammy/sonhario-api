@@ -14,4 +14,6 @@ urlpatterns = [
     path('entries/<int:pk>/', entry_show_update_delete, name="entry_show_update_delete"),
     path('entries/dreams/', dream_index, name="dream_index"),
     path('entries/<int:pk>/dream/', dream_create_show_update_delete, name="dream_create_show_update_delete"),
+
+    path('predict/sleep/', predict_sleep_quality, name='predict_sleep_quality'),
 ]
