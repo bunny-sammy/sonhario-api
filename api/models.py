@@ -56,6 +56,7 @@ class Entry (models.Model):
     )
     exercise = models.IntegerField(null=True)
     caffeine_intake = models.IntegerField(null=True)
+    screen_time = models.IntegerField(null=True)
     work_hours = models.FloatField(null=True)
     productivity_score = models.IntegerField(
         null=True, validators=[MinValueValidator(1), MaxValueValidator(10)]
