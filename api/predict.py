@@ -12,7 +12,6 @@ from . import utils
 # stress_model = joblib.load(os.path.join(model_path, 'stress_model.pkl'))
 
 def ask_groq (prompt):
-    print(settings.GROQ_API_KEY)
     client = Groq(
         api_key=settings.GROQ_API_KEY,
     )
@@ -64,19 +63,22 @@ def sleep_quality (data, age, gender):
         # predicted_productivity = productivity_model.predict(features)[0]
         # predicted_stress = stress_model.predict(features)[0]  
 
-        prompt = '''
-Do not type any text in the response. A user has entered the following data for tonight sleep. This app tries to encourage better habits, like avoiding screen time before bed, sleeping an appropriate amount of hours for ther age and drinking lower caffeine throught the day. It's important the user understands the importance of their sleeping habits, so really think about the data before responding.
-Data = {
+        prompt = f'''
+A user has entered the following data for tonight sleep. This app tries to encourage better habits, like avoiding screen time before bed, sleeping an appropriate amount of hours for their age and drinking lower caffeine throught the day. It's important the user understands the importance of their sleeping habits, so really think about the data before responding.
+Data = [
+'Sleep Start Time': {data['sleep_start_time']},
+'Sleep End Time': {data['sleep_end_time']},      
 'Total Sleep Hours': {total_sleep_hours}, 
 'Caffeine Intake (mg)': {utils.calc_coffee_cups(coffee_cups)} 
 'Screen Time Before Bed (mins)': {screen_time},
 'Age': {age},
 'Gender': {gender}
-}
+]
 Try and predict, in a scale of 1 to 10:
-- Their productivity score for the next day (1-10)
-- Their stress level for the next day (1-10)
-Do not write any text in the response, return ONLY the responses as an int to each point separated by _ with no line breaks
+1) Their productivity score for the next day (1-10)
+2) Their stress level for the next day (1-10)
+3) A one line of short, concise advice on how to improve their sleep quality based on this data (such as changing sleep times, avoiding screens before bed, drinking less coffee) in imperative language in brazilian portuguese. It's okay to just compliment them if they have healthy habits.
+Return ONLY the responses as an int to each of the three points separated by _ with no line breaks, avoiding any extra unnecessary text
                 '''
         evaluation = ask_groq(prompt)
         evaluation_data = evaluation.split('_')
@@ -93,6 +95,7 @@ Do not write any text in the response, return ONLY the responses as an int to ea
                 "productivity_string": utils.rating_out_of_ten(predicted_productivity, 'a'),
                 "stress_score": predicted_stress,
                 "stress_string": utils.rating_out_of_ten(predicted_stress, 'o'),
+                'advice': evaluation_data[2]
             },
         })
     except Exception as e:

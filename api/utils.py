@@ -2,6 +2,14 @@ from django.contrib.auth.models import User
 from rest_framework import status
 from datetime import datetime, timedelta, date
 
+def deficit_requirement (age):
+    # Calcula o mínimo de horas de sono por noite baseado na idade do indivíduo
+    requirement = 8
+    if (age <= 18): requirement += 1
+    if (age <= 12): requirement += 1
+
+    return requirement
+
 def check_register_data (data):
     # Checa se um usuário existe por username ou email
     username = data.get('username')
@@ -47,7 +55,7 @@ def calc_sleep_hours (start_str, end_str, format=True):
 def rating_out_of_ten (rating, final_char='o'):
     # Retorna uma string como avaliação
     rating = float(rating)
-    if (rating < 4):
+    if (rating <= 4):
         return f"Baix{final_char}"
     elif (rating >= 8):
         return f"Alt{final_char}"
