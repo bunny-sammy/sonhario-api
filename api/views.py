@@ -8,7 +8,7 @@ import pandas as pd
 from .models import *
 from .serializer import *
 from . import utils
-from . import predict
+from . import insight
 
 # AUTHENTICATION
 @api_view(['POST'])
@@ -192,13 +192,50 @@ def dream_create_show_update_delete (request, pk):
             dream.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
         
-# PREDICTION (AI AGENT)
+# ANÁLISE DE DADOS
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-def predict_sleep_quality(request):
-    response = predict.sleep_quality(
+def analyze_entry_quality(request):
+    response = insight.sleep_quality(
         request.data,
         utils.get_age(request.user.profile.birthdate),
         request.user.profile.gender
     )
     return response
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def analyze_weekly_deficit(request):
+    profile = request.user.profile
+    if not profile:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if profile.entries.count() < 1:
+        return Response({"error": "Nenhum registro encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
+    entries = profile.entries.order_by('-date')[0:6]
+    deficit = utils.calc_weekly_deficit(entries, profile)
+
+    return Response(deficit, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def analyze_weekly_average(request):
+    profile = request.user.profile
+    if not profile:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    if profile.entries.count() < 1:
+        return Response({"error": "Nenhum registro encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
+    entries = profile.entries.order_by('-date')[0:6]
+
+    average = utils.calc_weekly_average(entries, profile)
+    advice = insight.weekly_insight(entries, profile)
+
+    return Response({
+        'average': average[0],
+        'status': average[1],
+        'advice': advice
+
+    }, status=status.HTTP_200_OK)

@@ -24,9 +24,9 @@ body {
     justify-content: center;
     align-items: center;
 
-    width: calc(100vw - 1rem);
+    width: calc(100vw - 2rem);
     min-height: calc(100dvh - 1rem);
-    padding: 0.5rem;
+    padding: 1rem;
     margin: 0;
 
     overflow-x: hidden;

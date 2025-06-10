@@ -1,6 +1,16 @@
 from django.contrib.auth.models import User
 from rest_framework import status
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta, date, time
+
+weekdays = {
+    0: 'Seg',
+    1: 'Ter',
+    2: 'Qua',
+    3: 'Qui',
+    4: 'Sex',
+    5: 'Sáb',
+    6: 'Dom'
+}
 
 def check_register_data (data):
     # Checa se um usuário existe por username ou email
@@ -29,16 +39,29 @@ def get_age (birthdate):
 
     return age
 
+def parse_time(value):
+    if isinstance(value, time):
+        return value
+    if isinstance(value, datetime):
+        return value.time()
+    if isinstance(value, str):
+        return datetime.strptime(value, "%H:%M").time()
+    raise ValueError("Unsupported time format")
+
 def calc_sleep_hours (start_str, end_str, format=True):
     # Calcula, a partir da hora de início e fim, as horas de sono
     fmt = "%H:%M"
-    start = datetime.strptime(start_str, fmt)
-    end = datetime.strptime(end_str, fmt)
+    start = parse_time(start_str)
+    end = parse_time(end_str)
 
-    if end < start:
-        end += timedelta(days=1)
+    today = datetime.today().date()
+    start_dt = datetime.combine(today, start)
+    end_dt = datetime.combine(today, end)
 
-    duration = end - start
+    if end_dt < start_dt:
+        end_dt += timedelta(days=1)
+
+    duration = end_dt - start_dt
     hours = duration.total_seconds() / 3600
     if format: hours = round(hours, 2)
 
@@ -54,16 +77,16 @@ def rating_out_of_ten (rating, final_char='o'):
     else:
         return f"Médi{final_char}"
     
-def time_string (total_sleep_hours, short=False):
-    hours = int(total_sleep_hours)
-    minutes = int((total_sleep_hours % 1) * 60)
+def time_string (time, short=False):
+    hours = int(time)
+    minutes = int((time % 1) * 60)
 
     if (short):
         if (minutes > 0):
             return f"{hours}h {minutes}m"
         else:
             return f"{hours}h"
-    else:        
+    else:
         if (minutes > 0):
             return f"{hours} horas e {minutes} minutos"
         else:
@@ -83,7 +106,50 @@ def paginate_list (list, queries):
     end = start + limit
     return list[start:end]
 
-def calc_deficit ():
-    # Calcula o deficit de sono
-    # A implementar
-    return
+def sleep_requirement_by_age (age):
+    # Calcula o mínimo de horas de sono por noite baseado na idade do indivíduo
+    requirement = 8
+    if (age <= 18): requirement += 1
+    if (age <= 12): requirement += 1
+
+    return requirement
+
+def calc_weekly_deficit (entries, author):
+    # Calcula o deficit de sono da última semana
+    requirement = sleep_requirement_by_age(get_age(author.birthdate))
+    deficit = 0
+
+    for entry in entries:
+        sleep_hours = calc_sleep_hours(entry.sleep_start_time, entry.sleep_end_time)
+        daily_deficit = requirement - sleep_hours
+        deficit += daily_deficit
+
+    status = "even"
+    if deficit > 0:
+        status = "deficit"
+    if deficit < 0:
+        status = "surplus"
+
+    return {"status": status, "value": abs(round(deficit))}
+
+def calc_weekly_average (entries, author):
+    # Calcula a média de horas dormidas por noite na última semana
+    requirement = sleep_requirement_by_age(get_age(author.birthdate))
+    wiggle_room = 2
+    times_total = 0
+    count = 0
+
+    for entry in entries:
+        sleep_hours = calc_sleep_hours(entry.sleep_start_time, entry.sleep_end_time)
+        times_total += sleep_hours
+        count += 1
+
+    average = times_total / count
+    average = round(average)
+    verdict = "Dentro do recomendado"
+    if average > requirement + wiggle_room:
+        verdict = "Acima da média"
+    if average < requirement - wiggle_room:
+        verdict = "Abaixo do ideal"
+
+    return average, verdict

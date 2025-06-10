@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-vay0p(9y=)u7-jz^dsjnxtj61h%n@8&s_wk*ulu*w^re1==7td')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
 GROQ_API_KEY = os.getenv('GROQ_API_KEY')
 
