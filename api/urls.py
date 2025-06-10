@@ -17,5 +17,5 @@ urlpatterns = [
 
     path('insight/entry/', analyze_entry_quality, name='analyze_entry_quality'),
     path('insight/deficit/', analyze_weekly_deficit, name='analyze_weekly_deficit'),
-    path('insight/average/', analyze_weekly_deficit, name='analyze_weekly_deficit'),
+    path('insight/average/', analyze_weekly_average, name='analyze_weekly_average'),
 ]

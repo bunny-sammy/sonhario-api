@@ -210,6 +210,9 @@ def analyze_weekly_deficit(request):
     if not profile:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
+    if profile.entries.count() < 1:
+        return Response({"error": "Nenhum registro encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
     entries = profile.entries.order_by('-date')[0:6]
     deficit = utils.calc_weekly_deficit(entries, profile)
 
@@ -222,7 +225,11 @@ def analyze_weekly_average(request):
     if not profile:
         return Response(status=status.HTTP_404_NOT_FOUND)
     
+    if profile.entries.count() < 1:
+        return Response({"error": "Nenhum registro encontrado"}, status=status.HTTP_404_NOT_FOUND)
+    
     entries = profile.entries.order_by('-date')[0:6]
+
     average = utils.calc_weekly_average(entries, profile)
     advice = insight.weekly_insight(entries, profile)
 

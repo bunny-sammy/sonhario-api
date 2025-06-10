@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-vay0p(9y=)u7-jz^dsjnxtj61h%n@8&s_wk*ulu*w^re1==7td'
 GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions'
-GROQ_API_KEY = os.getenv('GROQ_API_KEY', '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')
+GROQ_API_KEY = os.getenv('GROQ_API_KEY', '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')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

@@ -106,4 +106,26 @@ Return ONLY the responses as an int to each of the three points separated by _ w
         }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     
 def weekly_insight (entries, profile):
-    return 0
+    print(entries)
+    prompt = f'''
+A user has entered the following sleep entries in the previous week. This app tries to encourage better habits, like avoiding screen time before bed, sleeping an appropriate amount of hours for their age and drinking lower caffeine throught the day. It's important the user understands the importance of their sleeping habits, so really think about the data before responding.
+'''
+    for index, entry in enumerate(entries):
+        prompt += f'''
+Entry {index+1} = [
+'Sleep Start Time': {entry.sleep_start_time},
+'Sleep End Time': {entry.sleep_end_time},      
+'Total Sleep Hours': {entry.total_sleep_hours}, 
+'Caffeine Intake (mg)': {entry.caffeine_intake} 
+'Screen Time Before Bed (mins)': {entry.screen_time},
+'Age': {entry.age},
+'Gender': {entry.gender}
+]
+'''
+    prompt += '''
+Generate one line of a short, concise review on their latest week of entries and advice on how to improve their sleep quality based on this data (such as changing sleep times, avoiding screens before bed, drinking less coffee) in imperative but caring language in brazilian portuguese. It's okay to just compliment them if they have healthy habits. Avoid stating non integer numbers.
+Return ONLY the response avoiding any extra unnecessary text
+                '''
+    evaluation = ask_groq(prompt)
+
+    return evaluation

@@ -145,6 +145,7 @@ def calc_weekly_average (entries, author):
         count += 1
 
     average = times_total / count
+    average = round(average)
     verdict = "Dentro do recomendado"
     if average > requirement + wiggle_room:
         verdict = "Acima da média"

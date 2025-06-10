@@ -13,12 +13,21 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
 class ProfileSerializer(serializers.ModelSerializer):
+    first_name = serializers.SerializerMethodField()
+    age = serializers.SerializerMethodField()
+
     class Meta:
         model = Profile
-        fields = ['id', 'user', 'display_name', 'birthdate', 'gender']
+        fields = ['id', 'user', 'first_name', 'display_name', 'age', 'birthdate', 'gender']
         extra_kwargs = {
             'user': {'read_only': True}
         }
+
+    def get_first_name(self, obj):
+        return obj.display_name.split(' ')[0]
+    
+    def get_age(self, obj):
+        return utils.get_age(obj.birthdate)
 
 class EntrySerializer(serializers.ModelSerializer):
     weekday = serializers.SerializerMethodField()
