@@ -65,6 +65,22 @@ section h2, section p {
     font-size: 0.75rem;
     margin-right: 0.25rem;
 }
+.card-title span.get {
+    color: #A0FAF9;
+    border: #A0FAF9 1px solid;
+}
+.card-title span.post {
+    color:rgb(247, 250, 160);
+    border: rgb(247, 250, 160) 1px solid;
+}
+.card-title span.put {
+    color:rgb(160, 250, 175);
+    border: rgb(160, 250, 175) 1px solid;
+}
+.card-title span.delete {
+    color:rgb(250, 160, 160);
+    border: rgb(250, 160, 160) 1px solid;
+}
 .card-content {
     max-height: 0;
     overflow-y: hidden;

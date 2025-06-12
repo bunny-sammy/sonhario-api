@@ -56,10 +56,10 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                    // Código executado após sucesso
+                        // Código executado após sucesso
                     })
                     .catch(error => {
-                    // Código executado após erro
+                        // Código executado após erro
                     });
                     </code></pre>
                     <pre><code class="language-js">
@@ -76,21 +76,21 @@
                     })
                     .then(response => response.json())
                     .then(data => {
-                    // Código executado após sucesso
+                        // Código executado após sucesso
                     })
                     .catch(error => {
-                    // Código executado após erro
+                        // Código executado após erro
                     });
                     </code></pre>
                     <p>
-                        Note que os exemplos de body para as rotas de método POST estão em JSON, mas deverão ser escritas como um objeto JavaScript no código.
+                        Note que os exemplos de body para as rotas de método POST estão em JSON, mas deverão ser escritas como um objeto JavaScript no código. Também é importante sempre enviar um / no fim do endereço em rotas de POST.
                     </p>
                     <pre><code class="language-json">
                     // Exemplo de body em JSON
                     {
-                    "username": "john_doe",
-                    "email": "example@mail.com",
-                    "password": "password"
+                        "username": "john_doe",
+                        "email": "example@mail.com",
+                        "password": "password"
                     }
                     </code></pre>
                     <pre><code class="language-js">
@@ -131,7 +131,24 @@
                     <pre><code class="language-json">
                     // Resposta de erro (401)
                     {
-                    "detail": "As credenciais de autenticação não foram fornecidas."
+                        "detail": "As credenciais de autenticação não foram fornecidas."
+                    }
+                    </code></pre>
+                    <p>
+                        Também existe um erro específico caso o token apresentado tenha expirado:                        
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de erro (401)
+                    {
+                        "detail": "O token informado não é válido para qualquer tipo de token",
+                        "code": "token_not_valid",
+                        "messages": [
+                            {
+                            "token_class": "AccessToken",
+                            "token_type": "access",
+                            "message": "Token is expired"
+                            }
+                        ]
                     }
                     </code></pre>
                 </div>
@@ -156,7 +173,7 @@
                     </code></pre>
                 </div>
             </div>
-            <div class="card">
+            <div class="card" id="paginate">
                 <div class="card-title">
                     <h3>Paginação em rotas de listagem</h3>
                 </div>
@@ -191,8 +208,8 @@
             <h2>Autenticação</h2>
             <div class="card">
                 <div class="card-title">
-                    <span>POST</span>
-                    <h3>/register_check/</h3>
+                    <span class="post">POST</span>
+                    <h3>/register/check/</h3>
                 </div>
                 <div class="card-content">
                     <p>
@@ -201,28 +218,28 @@
                     <pre><code class="language-json">
                     // Body
                     {
-                    "username": "john_doe",
-                    "email": "example@mail.com",
-                    "password": "password"
+                        "username": "john_doe",
+                        "email": "example@mail.com",
+                        "password": "password"
                     }
                     </code></pre>
                     <pre><code class="language-json">
                     // Resposta de sucesso (200)
                     {
-                    "message": "Seu nome de usuário e email estão dispníveis"
+                        "message": "Seu nome de usuário e email estão dispníveis"
                     }
                     </code></pre>
                     <pre><code class="language-json">
                     // Resposta de erro (400)
                     {
-                    "error": "Este nome de usuário já está em uso"
+                        "error": "Este nome de usuário já está em uso"
                     }
                     </code></pre>
                 </div>
             </div>
             <div class="card">
                 <div class="card-title">
-                    <span>POST</span>
+                    <span class="post">POST</span>
                     <h3>/register/</h3>
                 </div>
                 <div class="card-content">
@@ -232,18 +249,18 @@
                     <pre><code class="language-json">
                     // Body
                     {
-                    "username": "john_doe",
-                    "email": "example@mail.com",
-                    "password": "password",
-                    "display_name": "John Doe",
-                    "birthdate": "2000-04-01",
-                    "gender": "Male"
+                        "username": "john_doe",
+                        "email": "example@mail.com",
+                        "password": "password",
+                        "display_name": "John Doe",
+                        "birthdate": "2000-04-01",
+                        "gender": "Male"
                     }
                     </code></pre>
                     <pre><code class="language-json">
                     // Resposta de sucesso (200)
                     {
-                    "message": "Usuário registrado com sucesso!"
+                    sage": "Usuário registrado com sucesso!"
                     }
                     </code></pre>
                     </code></pre>
@@ -251,7 +268,7 @@
             </div>
             <div class="card">
                 <div class="card-title">
-                    <span>POST</span>
+                    <span class="post">POST</span>
                     <h3>/token/</h3>
                 </div>
                 <div class="card-content">
@@ -261,15 +278,15 @@
                     <pre><code class="language-json">
                     // Body
                     {
-                    "username": "john_doe",
-                    "password": "password"
+                        "username": "john_doe",
+                        "password": "password"
                     }
                     </code></pre>
                     <pre><code class="language-json">
                     // Resposta de sucesso (200)
                     {
-                    "refresh": "EXEMPLO_DE_TOKEN",
-                    "access": "EXEMPLO_DE_TOKEN"
+                        "refresh": "EXEMPLO_DE_TOKEN",
+                        "access": "EXEMPLO_DE_TOKEN"
                     }
                     </code></pre>
                     <p>
@@ -282,7 +299,7 @@
             </div>
             <div class="card">
                 <div class="card-title">
-                    <span>POST</span>
+                    <span class="post">POST</span>
                     <h3>/token/refresh/</h3>
                 </div>
                 <div class="card-content">
@@ -292,14 +309,14 @@
                     <pre><code class="language-json">
                     // Body
                     {
-                    "refresh": "EXEMPLO_DE_TOKEN"
+                        "refresh": "EXEMPLO_DE_TOKEN"
                     }
                     </code></pre>
                     <pre><code class="language-json">
                     // Resposta de sucesso (200)
                     {
-                    "access": "EXEMPLO_DE_TOKEN",
-                    "refresh": "EXEMPLO_DE_TOKEN"
+                        "access": "EXEMPLO_DE_TOKEN",
+                        "refresh": "EXEMPLO_DE_TOKEN"
                     }
                     </code></pre>
                     <pre><code class="language-js">
@@ -334,16 +351,557 @@
             </div>
         </section>
         <section>
-            <h2>Registros</h2>
-            <p>Em construção...</p>
+            <h2>Registros do Sono</h2>
+            <div class="card">
+                <div class="card-title">
+                    <span class="get">GET</span>
+                    <h3>/entries/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Lista os registros de um usuário autenticado do mais recente ao mais antigo. Retorna uma array com todos os registros, suportando <a href="#paginate">paginação</a>.
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (200)
+                    [  // <-- Array de elementos
+                        {
+                            "id": 3,
+                            "weekday": "Dom",
+                            "sleep_hours_string": "4 horas e 7 minutos",
+                            "sleep_hours_short": "4h 7m",
+                            "date": "2025-06-08",
+                            "age": 25,
+                            "gender": "Male",
+                            "sleep_start_time": "03:04:00",
+                            "sleep_end_time": "07:12:00",
+                            "total_sleep_hours": 4.13,
+                            "sleep_quality": null,
+                            "exercise": null,
+                            "caffeine_intake": 285,
+                            "screen_time": 120,
+                            "work_hours": null,
+                            "productivity_score": null,
+                            "mood_score": null,
+                            "stress_level": null,
+                            "created_at": "2025-06-12T22:20:02.662437Z",
+                            "updated_at": "2025-06-12T22:20:02.662437Z",
+                            "author": 1
+                        },
+                        {
+                            "id": 2,
+                            "weekday": "Sáb",
+                            "sleep_hours_string": "8 horas e 46 minutos",
+                            "sleep_hours_short": "8h 46m",
+                            "date": "2025-06-07",
+                            "age": 25,
+                            "gender": "Male",
+                            "sleep_start_time": "22:12:00",
+                            "sleep_end_time": "06:59:00",
+                            "total_sleep_hours": 8.78,
+                            "sleep_quality": null,
+                            "exercise": null,
+                            "caffeine_intake": 95,
+                            "screen_time": 30,
+                            "work_hours": null,
+                            "productivity_score": null,
+                            "mood_score": null,
+                            "stress_level": null,
+                            "created_at": "2025-06-12T22:19:39.981754Z",
+                            "updated_at": "2025-06-12T22:19:39.981754Z",
+                            "author": 1
+                        },
+                        {
+                            "id": 1,
+                            "weekday": "Sex",
+                            "sleep_hours_string": "7 horas e 46 minutos",
+                            "sleep_hours_short": "7h 46m",
+                            "date": "2025-06-06",
+                            "age": 25,
+                            "gender": "Male",
+                            "sleep_start_time": "21:54:00",
+                            "sleep_end_time": "05:41:00",
+                            "total_sleep_hours": 7.78,
+                            "sleep_quality": null,
+                            "exercise": null,
+                            "caffeine_intake": 190,
+                            "screen_time": 5,
+                            "work_hours": null,
+                            "productivity_score": null,
+                            "mood_score": null,
+                            "stress_level": null,
+                            "created_at": "2025-06-12T22:12:43.218052Z",
+                            "updated_at": "2025-06-12T22:12:43.218052Z",
+                            "author": 1
+                        }
+                    ]
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="get">GET</span>
+                    <h3>/entries/{id}/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Retorna as informações de um registro de sono específico. Substitua {id} pelo id do registro desejado.
+                    </p>                    
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (200)
+                    {
+                        "id": 2,
+                        "weekday": "Sáb",
+                        "sleep_hours_string": "8 horas e 46 minutos",
+                        "sleep_hours_short": "8h 46m",
+                        "date": "2025-06-07",
+                        "age": 25,
+                        "gender": "Male",
+                        "sleep_start_time": "22:12:00",
+                        "sleep_end_time": "06:59:00",
+                        "total_sleep_hours": 8.78,
+                        "sleep_quality": null,
+                        "exercise": null,
+                        "caffeine_intake": 95,
+                        "screen_time": 30,
+                        "work_hours": null,
+                        "productivity_score": null,
+                        "mood_score": null,
+                        "stress_level": null,
+                        "created_at": "2025-06-12T22:19:39.981754Z",
+                        "updated_at": "2025-06-12T22:19:39.981754Z",
+                        "author": 1
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="post">POST</span>
+                    <h3>/entries/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Adiciona um novo registro para um usuário autenticado. Antes de adicioná-la, considere <a href="#insight-entry">avaliar a sua qualidade com IA</a> e mostrar o resultado para o usuário.
+                    </p>
+                    <pre><code class="language-json">
+                    // Body
+                    {
+                        "date": "2025-06-06",
+                        "sleep_start_time": "21:54",
+                        "sleep_end_time": "05:41",
+                        "coffee_cups": 2,
+                        "screen_time": 5
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (201)
+                    {
+                        "id": 1,
+                        "weekday": "Sex",
+                        "sleep_hours_string": "7 horas e 46 minutos",
+                        "sleep_hours_short": "7h 46m",
+                        "date": "2025-06-06",
+                        "age": 25,
+                        "gender": "Male",
+                        "sleep_start_time": "21:54:00",
+                        "sleep_end_time": "05:41:00",
+                        "total_sleep_hours": 7.78,
+                        "sleep_quality": null,
+                        "exercise": null,
+                        "caffeine_intake": 190,
+                        "screen_time": 5,
+                        "work_hours": null,
+                        "productivity_score": null,
+                        "mood_score": null,
+                        "stress_level": null,
+                        "created_at": "2025-06-12T22:12:43.218052Z",
+                        "updated_at": "2025-06-12T22:12:43.218052Z",
+                        "author": 1
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="put">PUT</span>
+                    <h3>/entries/{id}/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Atualiza o registro com id especificado. Apenas os campos no exemplo abaixo são obrigatórios.
+                    </p>
+                    <pre><code class="language-json">
+                    // Body
+                    {
+                        "date": "2025-06-07",
+                        "sleep_start_time": "22:12",
+                        "sleep_end_time": "07:59",  // <-- Parâmetro atualizado
+                        "coffee_cups": 3
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (200)
+                    {
+                        "id": 2,
+                        "weekday": "Sáb",
+                        "sleep_hours_string": "9 horas e 46 minutos",
+                        "sleep_hours_short": "9h 46m",
+                        "date": "2025-06-07",
+                        "age": 25,
+                        "gender": "Male",
+                        "sleep_start_time": "22:12:00",
+                        "sleep_end_time": "07:59:00",  // <-- Propriedade atualizada no objeto
+                        "total_sleep_hours": 9.78,
+                        "sleep_quality": null,
+                        "exercise": null,
+                        "caffeine_intake": 285,
+                        "screen_time": 30,
+                        "work_hours": null,
+                        "productivity_score": null,
+                        "mood_score": null,
+                        "stress_level": null,
+                        "created_at": "2025-06-12T22:19:39.981754Z",
+                        "updated_at": "2025-06-12T22:28:10.320439Z",
+                        "author": 1
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="delete">DELETE</span>
+                    <h3>/entries/{id}/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Deleta o registro com id especificado. Note que a resposta de sucesso não traz nenhum dado, apenas o status 204 de sucesso.
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (204)
+                    {}
+                    </code></pre>
+                </div>
+            </div>
         </section>
         <section>
             <h2>Sonhos</h2>
-            <p>Em construção...</p>
+            <div class="card">
+                <div class="card-title">
+                    <span class="get">GET</span>
+                    <h3>/entries/dreams/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Lista os sonhos associados aos registros de sono de um usuário autenticado do mais recente ao mais antigo. Retorna uma array com todos os registros, suportando <a href="#paginate">paginação</a>.
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (200)
+                    [  // <-- Array de elementos
+                        {
+                            "id": 3,
+                            "emotion": 1,
+                            "date": "2025-06-08",
+                            "text": "Nenhum sonho em especial hoje.",
+                            "created_at": "2025-06-12T22:50:36.440606Z",
+                            "updated_at": "2025-06-12T22:50:36.440606Z",
+                            "author": 1,
+                            "entry": 3
+                        },
+                        {
+                            "id": 2,
+                            "emotion": 3,
+                            "date": "2025-06-07",
+                            "text": "Hoje eu tive um pesadelo...",
+                            "created_at": "2025-06-12T22:50:19.993053Z",
+                            "updated_at": "2025-06-12T22:50:19.993053Z",
+                            "author": 1,
+                            "entry": 2
+                        },
+                        {
+                            "id": 1,
+                            "emotion": 2,
+                            "date": "2025-06-06",
+                            "text": "Eu tive um sonho insano hoje!",
+                            "created_at": "2025-06-12T22:43:13.525755Z",
+                            "updated_at": "2025-06-12T22:45:22.202087Z",
+                            "author": 1,
+                            "entry": 1
+                        }
+                    ]
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="get">GET</span>
+                    <h3>/entries/{id}/dream/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Retorna as informações do sonho de um registro de sono específico. Substitua {id} pelo id do <b>registro de sono</b>, não do sonho.
+                    </p>                    
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (200)
+                    {
+                        "id": 1,
+                        "emotion": 2,
+                        "date": "2025-06-06",
+                        "text": "Eu tive um sonho insano hoje!",
+                        "created_at": "2025-06-12T22:43:13.525755Z",
+                        "updated_at": "2025-06-12T22:45:22.202087Z",
+                        "author": 1,
+                        "entry": 1  // <-- ID do registro que deve ser adicionado à URL
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="post">POST</span>
+                    <h3>/entries/{id}/dream/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Associa um novo sonho à entry de id especificado. Caso um sonho já esteja associado, esta rota irá atualizá-lo com os dados fornecidos. A data do sonho é tirada diretamente da data do registro associado.
+                    </p>
+                    <pre><code class="language-json">
+                    // Body
+                    {
+                        "emotion": 1,
+                        "text": "Eu tive um sonho insano hoje!"
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (201)
+                    {
+                        "id": 1,
+                        "emotion": 1,
+                        "date": "2025-06-06",
+                        "text": "Eu tive um sonho insano hoje!",
+                        "created_at": "2025-06-12T22:43:13.525755Z",
+                        "updated_at": "2025-06-12T22:43:13.525755Z",
+                        "author": 1,
+                        "entry": 1  // <-- ID do registro que deve ser adicionado à URL
+                    }
+                    </code></pre>
+                </div>
+            </div>            
+            <div class="card">
+                <div class="card-title">
+                    <span class="put">PUT</span>
+                    <h3>/entries/{id}/dream/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Atualiza o sonho do registro com id especificado. Apenas os campos no exemplo abaixo são obrigatórios.
+                    </p>
+                    <pre><code class="language-json">
+                    // Body
+                    {
+                        "emotion": 2,  // <-- Parâmetro atualizado
+                        "text": "Eu tive um sonho insano hoje!"
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (200)
+                    {
+                        "id": 1,
+                        "emotion": 2,  // <-- Propriedade atualizada no objeto
+                        "date": "2025-06-06",
+                        "text": "Eu tive um sonho insano hoje!",
+                        "created_at": "2025-06-12T22:43:13.525755Z",
+                        "updated_at": "2025-06-12T22:45:22.202087Z",
+                        "author": 1,
+                        "entry": 1
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="delete">DELETE</span>
+                    <h3>/entries/{id}/dream/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Deleta o sonho associado ao registro com id especificado. Note que a resposta de sucesso não traz nenhum dado, apenas o status 204 de sucesso.
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (204)
+                    {}
+                    </code></pre>
+                </div>
+            </div>
         </section>
         <section>
             <h2>Perfil de Usuário</h2>
-            <p>Em construção...</p>
+            <div class="card">
+                <div class="card-title">
+                    <span class="get">GET</span>
+                    <h3>/profile/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Retorna as informações do perfil do usuário autenticado.
+                    </p>                    
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (200)
+                    {
+                        "id": 1,
+                        "user": 1,
+                        "first_name": "John",
+                        "display_name": "John Doe",
+                        "age": 25,
+                        "birthdate": "2000-04-01",
+                        "gender": "Male"
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="put">PUT</span>
+                    <h3>/profile/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Atualiza as informações do perfil do usuário autenticado.
+                    </p>
+                    <pre><code class="language-json">
+                    // Body
+                    {
+                        "display_name": "Jane Doe",  // <-- Parâmetro atualizado
+                        "birthdate": "2000-04-01",
+                        "gender": "Female"  // <-- Parâmetro atualizado
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (201)
+                    {
+                        "id": 1,
+                        "user": 1,
+                        "display_name": "Jane Doe",  // <-- Propriedade atualizada no objeto
+                        "first_name": "Jane",  // <-- Atualizado automaticamente a partir de display_name
+                        "age": 25,
+                        "birthdate": "2000-04-01",
+                        "gender": "Female"  // <-- Propriedade atualizada no objeto
+                    }
+                    </code></pre>
+                </div>
+            </div>
+        </section>
+        <section>
+            <h2>Análise de Dados</h2>
+            <div class="card">
+                <div class="card-title">
+                    <span class="post">POST</span>
+                    <h3>/insight/entry/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Envia os dados do corpo da requisição anonimamente para serem processados pelo <a href="https://groq.com/">Groq</a>, que responde com uma previsão de produtividade e estresse no dia seguinte, além de um pequeno conselho amigável sobre os hábitos de sono do usuário.
+                    </p>
+                    <pre><code class="language-json">
+                    // Body
+                    {
+                        "date": "2025-06-08",
+                        "sleep_start_time": "03:04",
+                        "sleep_end_time": "07:12",
+                        "coffee_cups": 3,
+                        "screen_time": 120
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (201)
+                    {
+                        "success": true,
+                        "response": "6_7_Pare de usar telas por pelo menos uma hora antes de dormir para melhorar a qualidade do seu sono, ok?",
+                        "data": {
+                            "total_sleep_hours": 4.13,
+                            "time_string": "4 horas e 7 minutos",
+                            "productivity_score": "6",
+                            "productivity_string": "Média",
+                            "stress_score": "7",
+                            "stress_string": "Médio",
+                            "advice": "Pare de usar telas por pelo menos uma hora antes de dormir para melhorar a qualidade do seu sono, ok?"
+                        }
+                    }
+                    </code></pre>
+                    <p>
+                        Para acessar esta rota em um servidor local você precisará de uma chave de APÌ do Groq nas suas variáveis de ambiente. A ausência desta chave ou algum outro erro inesperado pode gerar uma resposta como esta:
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de erro (500)
+                    {
+                        "success": false,
+                        "error": "Erro interno no processamento",
+                        "technical": "Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}"
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="get">GET</span>
+                    <h3>/insight/deficit/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Calcula o deficit de sono do usuário autenticado baseado nos últimos sete registros. A resoista inclui o status (se o usuário está em deficit, equilibrado ou superavit) e o número de horas normalizado.
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso com deficit (209)
+                    {
+                        "status": "deficit",
+                        "value": 2
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso com superavit (209)
+                    {
+                        "status": "surplus",
+                        "value": 2
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso em equilíbrio (209)
+                    {
+                        "status": "even",
+                        "value": 0
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="get">GET</span>
+                    <h3>/insight/average/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Envia os dados dos últimos sete registros de sono do usuário autenticado anonimamente para serem processados pelo <a href="https://groq.com/">Groq</a>, que responde com uma breve avaliação sobre seus hábitos de sono. A resposta inclui também o número média de horas de sono da semana normalizado.
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (201)
+                    {
+                        "average": 7,
+                        "status": "Dentro do recomendado",
+                        "advice": "Melhore sua rotina de sono reduzindo a cafeína e evitando telas antes de dormir, mas parabéns por ter melhorado seu hábito de dormir mais cedo e reduzir o tempo de tela na última semana."
+                    }
+                    </code></pre>
+                    <p>
+                        Para acessar esta rota em um servidor local você precisará de uma chave de APÌ do Groq nas suas variáveis de ambiente. A ausência desta chave ou algum outro erro inesperado pode gerar uma resposta como esta:
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de erro (500)
+                    {
+                        "success": false,
+                        "error": "Erro interno no processamento",
+                        "technical": "Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}"
+                    }
+                    </code></pre>
+                </div>
+            </div>
         </section>
     </main>
 </body>

@@ -2,6 +2,11 @@
 ![Sonhario Logo](meta/cover.png)
 A API em Django do aplicativo **Sonhario** -- um diário de hábitos do sono que usa dados passados para tentar melhorar a sua rotina. Projeto desenvolvido para fins de estudo.
 
+## Tecnologias Utilizadas
+* [Django REST Framework](https://www.django-rest-framework.org/)
+* [Groq](https://groq.com/) para análise de dados
+* [Render](https://groq.com/) para produção
+
 ## Como Começar
 
 ### Prerequisitos
@@ -40,7 +45,14 @@ A API em Django do aplicativo **Sonhario** -- um diário de hábitos do sono que
    python manage.py migrate
    ```
 
-5. Inicie o servidor de desenvolvimento
+5. Crie suas variáveis de ambiente
+   ```bash
+   cp .env.example .env
+   # Ou no Windows
+   copy .env.example .env
+   ```
+
+6. Inicie o servidor de desenvolvimento
 
    ```bash
    python manage.py runserver
@@ -48,4 +60,4 @@ A API em Django do aplicativo **Sonhario** -- um diário de hábitos do sono que
 
 ## Documentação da API
 
-Em construção...
+Para entender o funcionamento da API e contribuir com o projeto, acesse a [documentação detalhada aqui](https://api-sonhario.onrender.com/docs/).

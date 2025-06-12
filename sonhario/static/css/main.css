@@ -19,6 +19,9 @@
   color: #FFF;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 body {
     display: flex;
     justify-content: center;
