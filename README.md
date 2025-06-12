@@ -40,7 +40,14 @@ A API em Django do aplicativo **Sonhario** -- um diário de hábitos do sono que
    python manage.py migrate
    ```
 
-5. Inicie o servidor de desenvolvimento
+5. Crie suas variáveis de ambiente
+   ```bash
+   cp .env.example .env
+   # Ou no Windows
+   copy .env.example .env
+   ```
+
+6. Inicie o servidor de desenvolvimento
 
    ```bash
    python manage.py runserver
