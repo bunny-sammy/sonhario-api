@@ -131,7 +131,24 @@
                     <pre><code class="language-json">
                     // Resposta de erro (401)
                     {
-                    "detail": "As credenciais de autenticação não foram fornecidas."
+                        "detail": "As credenciais de autenticação não foram fornecidas."
+                    }
+                    </code></pre>
+                    <p>
+                        Também existe um erro específico caso o token apresentado tenha expirado:                        
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de erro (401)
+                    {
+                        "detail": "O token informado não é válido para qualquer tipo de token",
+                        "code": "token_not_valid",
+                        "messages": [
+                            {
+                            "token_class": "AccessToken",
+                            "token_type": "access",
+                            "message": "Token is expired"
+                            }
+                        ]
                     }
                     </code></pre>
                 </div>
@@ -192,7 +209,7 @@
             <div class="card">
                 <div class="card-title">
                     <span class="post">POST</span>
-                    <h3>/register_check/</h3>
+                    <h3>/register/check/</h3>
                 </div>
                 <div class="card-content">
                     <p>
@@ -503,7 +520,7 @@
                     }
                     </code></pre>
                 </div>
-            </div>            
+            </div>
             <div class="card">
                 <div class="card-title">
                     <span class="put">PUT</span>
@@ -718,11 +735,173 @@
         </section>
         <section>
             <h2>Perfil de Usuário</h2>
-            <p>Em construção...</p>
+            <div class="card">
+                <div class="card-title">
+                    <span class="get">GET</span>
+                    <h3>/profile/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Retorna as informações do perfil do usuário autenticado.
+                    </p>                    
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (200)
+                    {
+                        "id": 1,
+                        "user": 1,
+                        "first_name": "John",
+                        "display_name": "John Doe",
+                        "age": 25,
+                        "birthdate": "2000-04-01",
+                        "gender": "Male"
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="put">PUT</span>
+                    <h3>/profile/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Atualiza as informações do perfil do usuário autenticado.
+                    </p>
+                    <pre><code class="language-json">
+                    // Body
+                    {
+                        "display_name": "Jane Doe",  // <-- Parâmetro atualizado
+                        "birthdate": "2000-04-01",
+                        "gender": "Female"  // <-- Parâmetro atualizado
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (201)
+                    {
+                        "id": 1,
+                        "user": 1,
+                        "display_name": "Jane Doe",  // <-- Propriedade atualizada no objeto
+                        "first_name": "Jane",  // <-- Atualizado automaticamente a partir de display_name
+                        "age": 25,
+                        "birthdate": "2000-04-01",
+                        "gender": "Female"  // <-- Propriedade atualizada no objeto
+                    }
+                    </code></pre>
+                </div>
+            </div>
         </section>
         <section>
             <h2>Análise de Dados</h2>
-            <p>Em construção...</p>
+            <div class="card">
+                <div class="card-title">
+                    <span class="post">POST</span>
+                    <h3>/insight/entry/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Envia os dados do corpo da requisição anonimamente para serem processados pelo <a href="https://groq.com/">Groq</a>, que responde com uma previsão de produtividade e estresse no dia seguinte, além de um pequeno conselho amigável sobre os hábitos de sono do usuário.
+                    </p>
+                    <pre><code class="language-json">
+                    // Body
+                    {
+                        "date": "2025-06-08",
+                        "sleep_start_time": "03:04",
+                        "sleep_end_time": "07:12",
+                        "coffee_cups": 3,
+                        "screen_time": 120
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (201)
+                    {
+                        "success": true,
+                        "response": "6_7_Pare de usar telas por pelo menos uma hora antes de dormir para melhorar a qualidade do seu sono, ok?",
+                        "data": {
+                            "total_sleep_hours": 4.13,
+                            "time_string": "4 horas e 7 minutos",
+                            "productivity_score": "6",
+                            "productivity_string": "Média",
+                            "stress_score": "7",
+                            "stress_string": "Médio",
+                            "advice": "Pare de usar telas por pelo menos uma hora antes de dormir para melhorar a qualidade do seu sono, ok?"
+                        }
+                    }
+                    </code></pre>
+                    <p>
+                        Para acessar esta rota em um servidor local você precisará de uma chave de APÌ do Groq nas suas variáveis de ambiente. A ausência desta chave ou algum outro erro inesperado pode gerar uma resposta como esta:
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de erro (500)
+                    {
+                        "success": false,
+                        "error": "Erro interno no processamento",
+                        "technical": "Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}"
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="get">GET</span>
+                    <h3>/insight/deficit/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Calcula o deficit de sono do usuário autenticado baseado nos últimos sete registros. A resoista inclui o status (se o usuário está em deficit, equilibrado ou superavit) e o número de horas normalizado.
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso com deficit (209)
+                    {
+                        "status": "deficit",
+                        "value": 2
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso com superavit (209)
+                    {
+                        "status": "surplus",
+                        "value": 2
+                    }
+                    </code></pre>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso em equilíbrio (209)
+                    {
+                        "status": "even",
+                        "value": 0
+                    }
+                    </code></pre>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    <span class="get">GET</span>
+                    <h3>/insight/average/</h3>
+                </div>
+                <div class="card-content">
+                    <p>
+                        Envia os dados dos últimos sete registros de sono do usuário autenticado anonimamente para serem processados pelo <a href="https://groq.com/">Groq</a>, que responde com uma breve avaliação sobre seus hábitos de sono. A resposta inclui também o número média de horas de sono da semana normalizado.
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de sucesso (201)
+                    {
+                        "average": 7,
+                        "status": "Dentro do recomendado",
+                        "advice": "Melhore sua rotina de sono reduzindo a cafeína e evitando telas antes de dormir, mas parabéns por ter melhorado seu hábito de dormir mais cedo e reduzir o tempo de tela na última semana."
+                    }
+                    </code></pre>
+                    <p>
+                        Para acessar esta rota em um servidor local você precisará de uma chave de APÌ do Groq nas suas variáveis de ambiente. A ausência desta chave ou algum outro erro inesperado pode gerar uma resposta como esta:
+                    </p>
+                    <pre><code class="language-json">
+                    // Resposta de erro (500)
+                    {
+                        "success": false,
+                        "error": "Erro interno no processamento",
+                        "technical": "Error code: 401 - {'error': {'message': 'Invalid API Key', 'type': 'invalid_request_error', 'code': 'invalid_api_key'}}"
+                    }
+                    </code></pre>
+                </div>
+            </div>
         </section>
     </main>
 </body>
