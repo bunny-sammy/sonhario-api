@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.conf import settings
 
 # TEXT CHOICES
 class Gender(models.TextChoices):
@@ -16,7 +16,7 @@ class Emotions(models.IntegerChoices):
 # MODELS
 class Profile (models.Model):
     user = models.OneToOneField(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='profile')
     

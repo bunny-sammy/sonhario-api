@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework import status
 from datetime import datetime, timedelta, date, time
 
@@ -12,17 +12,16 @@ weekdays = {
     6: 'Dom'
 }
 
-def check_register_data (data):
-    # Checa se um usuário existe por username ou email
-    username = data.get('username')
+def check_register_data(data):
+    # Checa se os dados de registro são válidos para o CustomUser model.
+    # Verifica se o email já está em uso.
+    User = get_user_model()
+
     email = data.get('email')
     password = data.get('password')
 
-    if not username or not email or not password:
-        return {'error': 'Preencha todos os campos corretamente'}, status.HTTP_400_BAD_REQUEST
-
-    if User.objects.filter(username=username).exists():
-        return {'error': 'Este nome de usuário já está em uso'}, status.HTTP_400_BAD_REQUEST
+    if not email or not password:
+        return {'error': 'Email e senha são obrigatórios'}, status.HTTP_400_BAD_REQUEST
 
     if User.objects.filter(email=email).exists():
         return {'error': 'Este email já está em uso'}, status.HTTP_400_BAD_REQUEST

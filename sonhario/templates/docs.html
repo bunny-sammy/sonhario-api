@@ -70,7 +70,7 @@
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({  // <-- POST requests precisam de um body
-                        username: 'john_doe',
+                        email: 'example@mail.com',
                         password: 'password',
                     }),
                     })
@@ -88,7 +88,6 @@
                     <pre><code class="language-json">
                     // Exemplo de body em JSON
                     {
-                        "username": "john_doe",
                         "email": "example@mail.com",
                         "password": "password"
                     }
@@ -96,7 +95,6 @@
                     <pre><code class="language-js">
                     // Mesmo exemplo em JavaScript
                     body: JSON.stringify({
-                        username: 'john_doe',
                         email: "example@mail.com",
                         password: 'password',                        
                     })
@@ -218,7 +216,6 @@
                     <pre><code class="language-json">
                     // Body
                     {
-                        "username": "john_doe",
                         "email": "example@mail.com",
                         "password": "password"
                     }
@@ -226,13 +223,13 @@
                     <pre><code class="language-json">
                     // Resposta de sucesso (200)
                     {
-                        "message": "Seu nome de usuário e email estão dispníveis"
+                        "message": "Seu email está disponível"
                     }
                     </code></pre>
                     <pre><code class="language-json">
                     // Resposta de erro (400)
                     {
-                        "error": "Este nome de usuário já está em uso"
+                        "error": "Este email já está em uso"
                     }
                     </code></pre>
                 </div>
@@ -249,7 +246,6 @@
                     <pre><code class="language-json">
                     // Body
                     {
-                        "username": "john_doe",
                         "email": "example@mail.com",
                         "password": "password",
                         "display_name": "John Doe",
@@ -260,7 +256,7 @@
                     <pre><code class="language-json">
                     // Resposta de sucesso (200)
                     {
-                    sage": "Usuário registrado com sucesso!"
+                        "message": "Usuário registrado com sucesso!"
                     }
                     </code></pre>
                     </code></pre>
@@ -278,7 +274,7 @@
                     <pre><code class="language-json">
                     // Body
                     {
-                        "username": "john_doe",
+                        "email": "example@mail.com",
                         "password": "password"
                     }
                     </code></pre>

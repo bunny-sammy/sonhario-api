@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework import status
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 import pandas as pd
 from .models import *
@@ -18,7 +18,7 @@ def auth_register_check(request):
     if error:
         return Response(error, status=status_code)
 
-    return Response({'message': "Seu nome de usuário e email estão dispníveis"}, status=status.HTTP_200_OK)
+    return Response({'message': "Seu email está disponível"}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -32,8 +32,7 @@ def auth_register(request):
     if not profile_serializer.is_valid():
         return Response(profile_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    new_user = User.objects.create_user(
-        username=request.data['username'],
+    new_user = get_user_model().objects.create_user(
         email=request.data['email'],
         password=request.data['password']
     )

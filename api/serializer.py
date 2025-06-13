@@ -6,11 +6,11 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
     class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'password']
+        model = settings.AUTH_USER_MODEL
+        fields = ['id', 'email', 'password']
 
     def create(self, validated_data):
-        return User.objects.create_user(**validated_data)
+        return settings.AUTH_USER_MODEL.objects.create_user(**validated_data)
 
 class ProfileSerializer(serializers.ModelSerializer):
     first_name = serializers.SerializerMethodField()
