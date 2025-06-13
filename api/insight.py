@@ -85,6 +85,9 @@ Return ONLY the responses as an int to each of the three points separated by _ w
         predicted_productivity = evaluation_data[0]
         predicted_stress = evaluation_data[1]
 
+        productivity_string = utils.rating_out_of_ten(predicted_productivity, 'a', True)
+        stress_string = utils.rating_out_of_ten(predicted_productivity, 'o', False)
+
         return Response({
             'success': True,
             'response': evaluation,
@@ -92,9 +95,11 @@ Return ONLY the responses as an int to each of the three points separated by _ w
                 "total_sleep_hours": total_sleep_hours,
                 'time_string': utils.time_string(total_sleep_hours),
                 "productivity_score": predicted_productivity,
-                "productivity_string": utils.rating_out_of_ten(predicted_productivity, 'a'),
+                "productivity_string": productivity_string[0],
+                "productivity_color": productivity_string[1],
                 "stress_score": predicted_stress,
-                "stress_string": utils.rating_out_of_ten(predicted_stress, 'o'),
+                "stress_string": stress_string[0],
+                "stress_color": stress_string[1],
                 'advice': evaluation_data[2]
             },
         })

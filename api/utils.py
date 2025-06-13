@@ -66,15 +66,15 @@ def calc_sleep_hours (start_str, end_str, format=True):
 
     return hours
 
-def rating_out_of_ten (rating, final_char='o'):
+def rating_out_of_ten (rating, final_char='o', good=True):
     # Retorna uma string como avaliação
     rating = float(rating)
     if (rating < 4):
-        return f"Baix{final_char}"
+        return f"Baix{final_char}", 3 if good else 1
     elif (rating >= 8):
-        return f"Alt{final_char}"
+        return f"Alt{final_char}", 1 if good else 3
     else:
-        return f"Médi{final_char}"
+        return f"Médi{final_char}", 2
     
 def time_string (time, short=False):
     hours = int(time)
