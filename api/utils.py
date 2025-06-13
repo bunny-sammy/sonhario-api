@@ -143,6 +143,8 @@ def calc_weekly_average (entries, author):
         times_total += sleep_hours
         count += 1
 
+    if (count == 0): count += 1
+
     average = times_total / count
     average = round(average)
     verdict = "Dentro do recomendado"
