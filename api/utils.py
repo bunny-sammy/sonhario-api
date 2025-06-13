@@ -69,7 +69,7 @@ def calc_sleep_hours (start_str, end_str, format=True):
 def rating_out_of_ten (rating, final_char='o'):
     # Retorna uma string como avaliação
     rating = float(rating)
-    if (rating <= 4):
+    if (rating < 4):
         return f"Baix{final_char}"
     elif (rating >= 8):
         return f"Alt{final_char}"
