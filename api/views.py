@@ -14,7 +14,7 @@ from . import insight
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def auth_register_check(request):
-    error, status_code = utils.check_register_data(request.data)
+    error, status_code = utils.check_register_data(request.data, False)
     if error:
         return Response(error, status=status_code)
 

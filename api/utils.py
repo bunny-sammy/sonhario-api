@@ -12,7 +12,7 @@ weekdays = {
     6: 'Dom'
 }
 
-def check_register_data(data):
+def check_register_data(data, login=True):
     # Checa se os dados de registro são válidos para o CustomUser model.
     # Verifica se o email já está em uso.
     User = get_user_model()
@@ -20,8 +20,8 @@ def check_register_data(data):
     email = data.get('email')
     password = data.get('password')
 
-    if not email or not password:
-        return {'error': 'Email e senha são obrigatórios'}, status.HTTP_400_BAD_REQUEST
+    if not email or (login and not password):
+        return {'error': 'Todos os campos precisam ser preenchidos'}, status.HTTP_400_BAD_REQUEST
 
     if User.objects.filter(email=email).exists():
         return {'error': 'Este email já está em uso'}, status.HTTP_400_BAD_REQUEST
