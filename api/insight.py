@@ -27,7 +27,7 @@ def ask_groq (prompt):
     return chat_completion.choices[0].message.content
 
 def sleep_quality (data, age, gender):
-    required_fields = ['sleep_start_time', 'sleep_end_time', 'coffee_cups', 'screen_time']
+    required_fields = ['sleep_start_time', 'sleep_end_time']
     for field in required_fields:
         if field not in data or not str(data[field]).strip():
             return Response({
@@ -36,8 +36,7 @@ def sleep_quality (data, age, gender):
             }, status=status.HTTP_400_BAD_REQUEST)
 
     try:
-        coffee_cups = int(data['coffee_cups'])
-        screen_time = int(data['screen_time'])
+        coffee_cups = int(data.get('coffee_cups', 0))
     except ValueError:
         return Response({
             'success': False,
@@ -70,7 +69,7 @@ Data = [
 'Sleep End Time': {data['sleep_end_time']},      
 'Total Sleep Hours': {total_sleep_hours}, 
 'Caffeine Intake (mg)': {utils.calc_coffee_cups(coffee_cups)} 
-'Exercise Time (minutes)': {data['exercise']},
+'Exercise Time (minutes)': {data.get('exercise', "Not provided by user")},
 'Age': {age},
 'Gender': {gender}
 ]
