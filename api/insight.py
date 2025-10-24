@@ -70,7 +70,7 @@ Data = [
 'Sleep End Time': {data['sleep_end_time']},      
 'Total Sleep Hours': {total_sleep_hours}, 
 'Caffeine Intake (mg)': {utils.calc_coffee_cups(coffee_cups)} 
-'Screen Time Before Bed (mins)': {screen_time},
+'Exercise Time (minutes)': {data['exercise']},
 'Age': {age},
 'Gender': {gender}
 ]
@@ -122,7 +122,7 @@ Entry {index+1} = [
 'Sleep End Time': {entry.sleep_end_time},      
 'Total Sleep Hours': {entry.total_sleep_hours}, 
 'Caffeine Intake (mg)': {entry.caffeine_intake} 
-'Screen Time Before Bed (mins)': {entry.screen_time},
+'Exercise Time (minutes)': {entry.exercise},
 'Age': {entry.age},
 'Gender': {entry.gender}
 ]
