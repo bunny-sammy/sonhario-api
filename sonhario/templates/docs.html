@@ -355,7 +355,7 @@
                 </div>
                 <div class="card-content">
                     <p>
-                        Lista os registros de um usuário autenticado do mais recente ao mais antigo. Retorna uma array com todos os registros, suportando <a href="#paginate">paginação</a>.
+                        Lista os registros de um usuário autenticado do mais recente ao mais antigo. Retorna uma array com todos os registros, suportando <a href="#paginate">paginação</a>. O "id" nesta url pode ser tanto o próprio id da query quanto uma data válida no formato AAAA-MM-DD.
                     </p>
                     <pre><code class="language-json">
                     // Resposta de sucesso (200)
@@ -440,7 +440,7 @@
                 </div>
                 <div class="card-content">
                     <p>
-                        Retorna as informações de um registro de sono específico. Substitua {id} pelo id do registro desejado.
+                        Retorna as informações de um registro de sono específico. Substitua {id} pelo id ou data do registro desejado.
                     </p>                    
                     <pre><code class="language-json">
                     // Resposta de sucesso (200)
@@ -486,7 +486,9 @@
                         "sleep_start_time": "21:54",
                         "sleep_end_time": "05:41",
                         "coffee_cups": 2,
-                        "screen_time": 5
+                        "exercise": 30,
+                        "screen_time": 5,
+                        "notes": "Anotações aqui"
                     }
                     </code></pre>
                     <pre><code class="language-json">
@@ -503,13 +505,14 @@
                         "sleep_end_time": "05:41:00",
                         "total_sleep_hours": 7.78,
                         "sleep_quality": null,
-                        "exercise": null,
+                        "exercise": 30,
                         "caffeine_intake": 190,
                         "screen_time": 5,
                         "work_hours": null,
                         "productivity_score": null,
                         "mood_score": null,
                         "stress_level": null,
+                        "notes": "Anotações aqui"
                         "created_at": "2025-06-12T22:12:43.218052Z",
                         "updated_at": "2025-06-12T22:12:43.218052Z",
                         "author": 1
@@ -524,7 +527,7 @@
                 </div>
                 <div class="card-content">
                     <p>
-                        Atualiza o registro com id especificado. Apenas os campos no exemplo abaixo são obrigatórios.
+                        Atualiza o registro com id ou data especificada. Apenas os campos no exemplo abaixo são obrigatórios.
                     </p>
                     <pre><code class="language-json">
                     // Body
@@ -634,7 +637,7 @@
                 </div>
                 <div class="card-content">
                     <p>
-                        Retorna as informações do sonho de um registro de sono específico. Substitua {id} pelo id do <b>registro de sono</b>, não do sonho.
+                        Retorna as informações do sonho de um registro de sono específico. Substitua {id} pelo id do <b>registro de sono</b>, não do sonho. Uma data no formato AAAA-MM-DD também funciona.
                     </p>                    
                     <pre><code class="language-json">
                     // Resposta de sucesso (200)
@@ -650,7 +653,7 @@
                     }
                     </code></pre>
                 </div>
-            </div>
+            </div>            
             <div class="card">
                 <div class="card-title">
                     <span class="post">POST</span>
@@ -658,7 +661,7 @@
                 </div>
                 <div class="card-content">
                     <p>
-                        Associa um novo sonho à entry de id especificado. Caso um sonho já esteja associado, esta rota irá atualizá-lo com os dados fornecidos. A data do sonho é tirada diretamente da data do registro associado.
+                        Associa um novo sonho à entry de id ou data especificada. Caso um sonho já esteja associado, esta rota irá atualizá-lo com os dados fornecidos. A data do sonho é tirada diretamente da data do registro associado caso não tenha sido especificada na URL. Um sonho pode ser criado mesmo que a data informada não possua um registro de sono!
                     </p>
                     <pre><code class="language-json">
                     // Body
@@ -803,8 +806,8 @@
                         "date": "2025-06-08",
                         "sleep_start_time": "03:04",
                         "sleep_end_time": "07:12",
-                        "coffee_cups": 3,
-                        "screen_time": 120
+                        "coffee_cups": 3, // cada copo com 95 ml
+                        "exercise": 30 // tempo de exercício em minutos
                     }
                     </code></pre>
                     <pre><code class="language-json">
