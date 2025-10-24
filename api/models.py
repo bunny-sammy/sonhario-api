@@ -67,6 +67,9 @@ class Entry (models.Model):
     stress_level = models.IntegerField(
         null=True, validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
+    notes = models.TextField(
+        null=True
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -82,6 +85,7 @@ class Dream (models.Model):
     )
     entry = models.OneToOneField(
         Entry,
+        null=True,
         on_delete=models.CASCADE,
         related_name='dream'
     )

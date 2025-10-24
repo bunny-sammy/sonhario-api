@@ -10,10 +10,10 @@ urlpatterns = [
 
     path('profile/', profile_show_update, name="profile_show_update"),
 
-    path('entries/', entry_index_create, name="entry_index_create"),
-    path('entries/<int:pk>/', entry_show_update_delete, name="entry_show_update_delete"),
     path('entries/dreams/', dream_index, name="dream_index"),
-    path('entries/<int:pk>/dream/', dream_create_show_update_delete, name="dream_create_show_update_delete"),
+    path('entries/<str:pk>/dream/', dream_create_show_update_delete, name="dream_create_show_update_delete"),
+    path('entries/', entry_index_create, name="entry_index_create"),
+    path('entries/<str:pk>/', entry_show_update_delete, name="entry_show_update_delete"),
 
     path('insight/entry/', analyze_entry_quality, name='analyze_entry_quality'),
     path('insight/deficit/', analyze_weekly_deficit, name='analyze_weekly_deficit'),

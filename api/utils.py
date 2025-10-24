@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from rest_framework import status
 from datetime import datetime, timedelta, date, time
+from .models import Entry
 
 weekdays = {
     0: 'Seg',
@@ -46,6 +47,20 @@ def parse_time(value):
     if isinstance(value, str):
         return datetime.strptime(value, "%H:%M").time()
     raise ValueError("Unsupported time format")
+
+def get_entry_by_date_or_id(profile, identifier):
+    # Encontra uma entry independente se identifier é uma data ou um id
+    try:
+        entry_pk = int(identifier)
+        entry = Entry.objects.get(pk=entry_pk, author=profile)
+        return entry.date, entry        
+    except (ValueError, TypeError):
+        try:
+            valid_date = date.fromisoformat(identifier)
+            entry = Entry.objects.filter(author=profile, date=valid_date).first()
+            return valid_date, entry
+        except ValueError:
+            return None, None
 
 def calc_sleep_hours (start_str, end_str, format=True):
     # Calcula, a partir da hora de início e fim, as horas de sono
