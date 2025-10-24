@@ -440,7 +440,7 @@
                 </div>
                 <div class="card-content">
                     <p>
-                        Retorna as informações de um registro de sono específico. Substitua {id} pelo id do registro desejado.
+                        Retorna as informações de um registro de sono específico. Substitua {id} pelo id ou data do registro desejado.
                     </p>                    
                     <pre><code class="language-json">
                     // Resposta de sucesso (200)
@@ -527,7 +527,7 @@
                 </div>
                 <div class="card-content">
                     <p>
-                        Atualiza o registro com id especificado. Apenas os campos no exemplo abaixo são obrigatórios.
+                        Atualiza o registro com id ou data especificada. Apenas os campos no exemplo abaixo são obrigatórios.
                     </p>
                     <pre><code class="language-json">
                     // Body
@@ -806,8 +806,8 @@
                         "date": "2025-06-08",
                         "sleep_start_time": "03:04",
                         "sleep_end_time": "07:12",
-                        "coffee_cups": 3,
-                        "screen_time": 120
+                        "coffee_cups": 3, // cada copo com 95 ml
+                        "exercise": 30 // tempo de exercício em minutos
                     }
                     </code></pre>
                     <pre><code class="language-json">
