@@ -34,6 +34,12 @@ class EntrySerializer(serializers.ModelSerializer):
     sleep_hours_string = serializers.SerializerMethodField()
     sleep_hours_short = serializers.SerializerMethodField()
 
+    notes = serializers.CharField(
+        required=False, 
+        allow_null=True,
+        style={'base_template': 'textarea.html'}
+    )
+
     class Meta:
         model = Entry
         fields = '__all__'
