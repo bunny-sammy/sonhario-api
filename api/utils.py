@@ -142,7 +142,9 @@ def calc_weekly_deficit (entries, author):
     if deficit > 0:
         status = "deficit"
     if deficit < 0:
-        status = "surplus"
+        deficit = 0
+        status = "even"
+        # status = "surplus"
 
     return {"status": status, "value": abs(round(deficit))}
 
