@@ -54,8 +54,8 @@ class Entry (models.Model):
     sleep_quality = models.IntegerField(
         null=True, validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
-    exercise = models.IntegerField(null=True)
-    caffeine_intake = models.IntegerField(null=True)
+    exercise = models.IntegerField(null=True, default=None)
+    caffeine_intake = models.IntegerField(null=True, default=None)
     screen_time = models.IntegerField(null=True)
     work_hours = models.FloatField(null=True)
     productivity_score = models.IntegerField(
@@ -68,7 +68,7 @@ class Entry (models.Model):
         null=True, validators=[MinValueValidator(1), MaxValueValidator(10)]
     )
     notes = models.TextField(
-        null=True
+        null=True, blank=True
     )
 
     created_at = models.DateTimeField(auto_now_add=True)

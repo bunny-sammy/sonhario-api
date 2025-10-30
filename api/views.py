@@ -95,6 +95,10 @@ def entry_index_create(request):
                 pass
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        if ('sleep_quality' in request.data and request.data['sleep_quality'] < 1):
+            return Response({"error": "Por favor avalie sua noite de sono"}, status=status.HTTP_400_BAD_REQUEST)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['GET', 'PUT', 'DELETE'])
