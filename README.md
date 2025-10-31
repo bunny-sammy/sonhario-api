@@ -1,6 +1,7 @@
 # Sonhario - API
 ![Sonhario Logo](meta/cover.png)
-A API em Django do aplicativo **Sonhario** -- um diário de hábitos do sono que usa dados passados para tentar melhorar a sua rotina. Projeto desenvolvido para fins de estudo.
+A API em Django do aplicativo **Sonhario** -- um diário de hábitos do sono que usa dados passados para tentar melhorar a sua rotina. Projeto desenvolvido para fins de estudo.\
+Confira também o [repositório do frontend](https://github.com/omarcosss/sonhario-front)
 
 ## Tecnologias Utilizadas
 * [Django REST Framework](https://www.django-rest-framework.org/)
